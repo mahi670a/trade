@@ -154,7 +154,7 @@
             transform: translateY(-2px);
         }
         
-        /* مودال‌ها */
+        /* ========== مودال ویرایش بالانس - بهینه شده ========== */
         .balance-modal, .details-modal {
             position: fixed;
             top: 0;
@@ -168,44 +168,250 @@
             z-index: 2000;
             display: none;
             backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease-out;
         }
         
-        .balance-modal-content, .details-modal-content {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .balance-modal-content {
             background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 25px;
-            border-radius: 12px;
+            padding: 0;
+            border-radius: 16px;
             width: 90%;
-            max-width: 400px;
+            max-width: 450px;
             border: 1px solid #475569;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: modalSlideUp 0.4s ease-out;
         }
         
         .details-modal-content {
             max-width: 500px;
+            animation: modalSlideUp 0.4s ease-out;
         }
         
-        .balance-modal h3 {
-            color: #60a5fa;
-            margin-bottom: 20px;
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .balance-modal-header {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            padding: 25px;
+            border-radius: 16px 16px 0 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .balance-modal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        }
+        
+        .balance-modal-icon {
+            background: rgba(255, 255, 255, 0.2);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 15px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .balance-modal-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .balance-modal-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        .balance-modal-body {
+            padding: 30px;
+        }
+        
+        .balance-input-group {
+            margin-bottom: 25px;
+        }
+        
+        .balance-input-label {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: block;
+            font-weight: 600;
+        }
+        
+        .balance-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .balance-input-symbol {
+            position: absolute;
+            right: 15px;
+            color: #60a5fa;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
         
         .balance-modal-input {
             width: 100%;
-            padding: 12px;
+            padding: 16px 50px 16px 20px;
             background-color: #1e293b;
+            border: 2px solid #475569;
+            border-radius: 10px;
+            color: #f1f5f9;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: left;
+            direction: ltr;
+            transition: all 0.3s;
+        }
+        
+        .balance-modal-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .balance-preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .balance-preset-btn {
+            padding: 10px 5px;
+            background: rgba(71, 85, 105, 0.3);
             border: 1px solid #475569;
             border-radius: 8px;
-            color: #f1f5f9;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
+            color: #e2e8f0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
             text-align: center;
         }
         
-        .balance-modal-buttons {
+        .balance-preset-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .current-balance-display {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .current-balance-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .current-balance-value {
+            color: #10b981;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .balance-modal-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        
+        .balance-modal-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .balance-modal-btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+        }
+        
+        .balance-modal-btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .balance-modal-btn-secondary {
+            background-color: #475569;
+            color: #e2e8f0;
+        }
+        
+        .balance-modal-btn-secondary:hover {
+            background-color: #64748b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(71, 85, 105, 0.3);
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
         }
         
         header {
@@ -604,28 +810,45 @@
             color: #10b981;
         }
         
+        /* ========== تغییر مهم: دکمه‌های عملیات کوچک و در یک خط ========== */
         .actions {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            min-width: 160px;
         }
         
         .btn-icon {
-            padding: 6px;
+            padding: 5px;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             cursor: pointer;
             border: none;
             transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 32px;
-            width: 32px;
+            height: 28px;
+            width: 28px;
+            min-width: 28px;
+            flex-shrink: 0;
         }
         
         .btn-icon:hover {
             transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-icon:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-icon:disabled:hover {
+            transform: none;
+            box-shadow: none;
         }
         
         .btn-print {
@@ -642,7 +865,7 @@
         /* ========== بخش آمار عملکرد ========== */
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(8, 1fr);
+            grid-template-columns: repeat(4, 1fr); /* تغییر به 4 کارت در هر خط */
             gap: 15px;
             margin-top: 15px;
         }
@@ -849,22 +1072,6 @@
             margin-top: 20px;
         }
         
-        /* بهبود مودال‌ها */
-        .balance-modal-content, .details-modal-content {
-            animation: modalSlideIn 0.3s ease-out;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
         /* حالت پرینت */
         @media print {
             body {
@@ -927,66 +1134,53 @@
                 grid-template-columns: repeat(4, 1fr) !important;
             }
         }
-        
-        /* اسکریپت JavaScript برای تنظیم مقیاس دینامیک */
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function adjustScale() {
-                const container = document.querySelector('.container');
-                const containerWidth = 1400; // عرض اصلی کانتینر
-                const windowWidth = window.innerWidth;
-                
-                // محاسبه مقیاس بر اساس عرض پنجره
-                let scale = windowWidth / containerWidth;
-                
-                // محدود کردن مقیاس بین 0.35 تا 1
-                scale = Math.max(0.35, Math.min(1, scale));
-                
-                // اعمال transform
-                container.style.transform = `scale(${scale})`;
-                container.style.transformOrigin = 'top center';
-                
-                // محاسبه ارتفاع جدید برای بدنه
-                const containerHeight = container.offsetHeight;
-                const scaledHeight = containerHeight * scale;
-                const minBodyHeight = Math.max(window.innerHeight, scaledHeight + 40);
-                
-                document.body.style.minHeight = `${minBodyHeight}px`;
-            }
-            
-            // اجرا در بارگذاری اولیه
-            adjustScale();
-            
-            // اجرا در تغییر اندازه پنجره
-            window.addEventListener('resize', adjustScale);
-            
-            // همچنین برای اطمینان، بعد از لود کامل محتوا
-            window.addEventListener('load', adjustScale);
-            
-            // برای تغییرات دینامیک محتوا
-            const observer = new MutationObserver(adjustScale);
-            observer.observe(document.body, { childList: true, subtree: true });
-        });
-        </script>
     </style>
 </head>
 <body>
-    <!-- محتوای HTML شما دقیقاً مثل قبل باقی می‌ماند -->
-    <!-- فقط container اصلی باید کلاس .container داشته باشد -->
-    
     <div class="container">
-        <!-- مودال ویرایش بالانس -->
+        <!-- مودال ویرایش بالانس - بهینه شده -->
         <div id="balanceModal" class="balance-modal">
             <div class="balance-modal-content">
-                <h3><i class="fas fa-wallet"></i> ویرایش بالانس حساب</h3>
-                <input type="number" id="newBalanceInput" class="balance-modal-input" placeholder="مقدار جدید بالانس" step="0.01" value="1000">
-                <div class="balance-modal-buttons">
-                    <button type="button" class="btn-primary" onclick="updateBalance()" style="flex: 1;">
-                        <i class="fas fa-save"></i> ذخیره
+                <div class="balance-modal-header">
+                    <button class="modal-close-btn" onclick="closeBalanceModal()">
+                        <i class="fas fa-times"></i>
                     </button>
-                    <button type="button" class="btn-secondary" onclick="closeBalanceModal()" style="flex: 1;">
-                        <i class="fas fa-times"></i> لغو
-                    </button>
+                    <div class="balance-modal-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="balance-modal-title">ویرایش بالانس حساب</h3>
+                    <p class="balance-modal-subtitle">مقدار جدید حساب معاملاتی خود را وارد کنید</p>
+                </div>
+                
+                <div class="balance-modal-body">
+                    <div class="balance-input-group">
+                        <label class="balance-input-label">مبلغ جدید (دلار)</label>
+                        <div class="balance-input-wrapper">
+                            <input type="number" id="newBalanceInput" class="balance-modal-input" placeholder="1000" step="0.01" min="0" value="1000">
+                            <span class="balance-input-symbol">$</span>
+                        </div>
+                        
+                        <div class="balance-preset-buttons">
+                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(500)">$500</button>
+                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(1000)">$1,000</button>
+                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(2000)">$2,000</button>
+                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(5000)">$5,000</button>
+                        </div>
+                    </div>
+                    
+                    <div class="current-balance-display">
+                        <span class="current-balance-label">موجودی فعلی:</span>
+                        <span class="current-balance-value" id="currentBalanceDisplay">$1,000</span>
+                    </div>
+                    
+                    <div class="balance-modal-footer">
+                        <button type="button" class="balance-modal-btn balance-modal-btn-secondary" onclick="closeBalanceModal()">
+                            <i class="fas fa-times"></i> لغو
+                        </button>
+                        <button type="button" class="balance-modal-btn balance-modal-btn-primary" onclick="updateBalance()">
+                            <i class="fas fa-save"></i> ذخیره تغییرات
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1144,7 +1338,7 @@
             <p class="subtitle">  R-NIKER  </p>
         </header>
         
-        <!-- بخش بالانس حساب - جدید و مرتب -->
+        <!-- بخش بالانس حساب -->
         <div class="balance-container">
             <div class="balance-main">
                 <div class="balance-icon">
@@ -1176,7 +1370,7 @@
         </div>
         
         <main class="main-content">
-            <!-- بخش ثبت معامله - تمیز و مرتب -->
+            <!-- بخش ثبت معامله -->
             <section class="section">
                 <h2 class="section-title"><i class="fas fa-plus-circle"></i> ثبت معامله جدید</h2>
                 <form id="tradeForm" class="trade-form">
@@ -1517,12 +1711,12 @@
         // نمایش بالانس در بخش جدید
         function updateBalanceDisplay() {
             document.getElementById('currentBalance').textContent = '$' + formatNumber(accountBalance);
-            
-            // محاسبه سود/ضرر کل
-            const totalPnL = calculateTotalPnL();
-            const totalPnLElement = document.getElementById('totalPnL');
-            totalPnLElement.textContent = (totalPnL >= 0 ? '+' : '') + formatCurrency(Math.abs(totalPnL));
-            totalPnLElement.style.color = totalPnL >= 0 ? '#10b981' : '#ef4444';
+            document.getElementById('currentBalanceDisplay').textContent = '$' + formatNumber(accountBalance);
+        }
+        
+        // تنظیم مقدار پیش‌فرض بالانس
+        function setBalancePreset(amount) {
+            document.getElementById('newBalanceInput').value = amount;
         }
         
         // فرمت ارز برای سود/ضرر
@@ -1560,6 +1754,12 @@
             const totalRiskPercent = accountBalance > 0 ? (totalRiskAmount / accountBalance) * 100 : 0;
             
             document.getElementById('totalRiskPercent').textContent = totalRiskPercent.toFixed(2) + '%';
+            
+            // محاسبه سود/ضرر کل
+            const totalPnL = calculateTotalPnL();
+            const totalPnLElement = document.getElementById('totalPnL');
+            totalPnLElement.textContent = (totalPnL >= 0 ? '+' : '') + formatCurrency(Math.abs(totalPnL));
+            totalPnLElement.style.color = totalPnL >= 0 ? '#10b981' : '#ef4444';
         }
         
         // تنظیم درصد ریسک
@@ -1836,6 +2036,7 @@
                                 date.getHours().toString().padStart(2, '0') + ':' + 
                                 date.getMinutes().toString().padStart(2, '0');
                 
+                // دکمه‌های عملیات کوچک و در یک خط
                 html += `
                 <tr>
                     <td>
@@ -1854,16 +2055,16 @@
                     <td><span class="${statusClass}">${statusText}</span></td>
                     <td><span class="${pnlClass}">${pnlText}</span></td>
                     <td class="actions">
-                        <button class="btn-icon" onclick="showTradeDetails(${trade.id})" style="background-color: rgba(14, 165, 233, 0.1); color: #0ea5e9; border: 1px solid rgba(14, 165, 233, 0.3);">
+                        <button class="btn-icon" onclick="showTradeDetails(${trade.id})" style="background-color: rgba(14, 165, 233, 0.1); color: #0ea5e9; border: 1px solid rgba(14, 165, 233, 0.3);" title="مشاهده جزئیات">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button class="btn-icon" onclick="editTrade(${trade.id})" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">
+                        <button class="btn-icon" onclick="editTrade(${trade.id})" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);" title="ویرایش">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn-icon" onclick="closeTrade(${trade.id})" style="background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3);" ${trade.status === 'closed' ? 'disabled' : ''}>
+                        <button class="btn-icon" onclick="closeTrade(${trade.id})" style="background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3);" ${trade.status === 'closed' ? 'disabled' : ''} title="بستن معامله">
                             <i class="fas fa-check-circle"></i>
                         </button>
-                        <button class="btn-icon" onclick="deleteTrade(${trade.id})" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);">
+                        <button class="btn-icon" onclick="deleteTrade(${trade.id})" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);" title="حذف">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
