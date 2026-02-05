@@ -163,11 +163,13 @@
             background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
-            align-items: center;
-            z-index: 2000;
+            align-items: flex-start;
+            z-index: 9999;
             display: none;
             backdrop-filter: blur(5px);
             animation: fadeIn 0.3s ease-out;
+            overflow-y: auto;
+            padding: 20px;
         }
         
         @keyframes fadeIn {
@@ -182,21 +184,32 @@
             width: 90%;
             max-width: 450px;
             border: 1px solid #475569;
-            max-height: 85vh;
+            max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             animation: modalSlideUp 0.4s ease-out;
+            position: relative;
+            margin-top: 50px;
         }
         
         .details-modal-content {
             max-width: 500px;
             animation: modalSlideUp 0.4s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            margin-top: 50px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #475569;
+            width: 90%;
         }
         
         @keyframes modalSlideUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -1148,239 +1161,240 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- مودال ویرایش بالانس - بهینه شده -->
-        <div id="balanceModal" class="balance-modal">
-            <div class="balance-modal-content">
-                <div class="balance-modal-header">
-                    <button class="modal-close-btn" onclick="closeBalanceModal()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="balance-modal-icon">
-                        <i class="fas fa-wallet"></i>
+    <!-- مودال ویرایش بالانس - بهینه شده -->
+    <div id="balanceModal" class="balance-modal">
+        <div class="balance-modal-content">
+            <div class="balance-modal-header">
+                <button class="modal-close-btn" onclick="closeBalanceModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="balance-modal-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3 class="balance-modal-title">ویرایش بالانس حساب</h3>
+                <p class="balance-modal-subtitle">موجودی حساب فعلی خود را تغییر دهید</p>
+            </div>
+            
+            <div class="balance-modal-body">
+                <div class="balance-input-group">
+                    <label class="balance-input-label">مبلغ جدید (دلار)</label>
+                    <div class="balance-input-wrapper">
+                        <input type="number" id="newBalanceInput" class="balance-modal-input" placeholder="1000" step="0.01" min="0" value="1000">
+                        <span class="balance-input-symbol">$</span>
                     </div>
-                    <h3 class="balance-modal-title">ویرایش بالانس حساب</h3>
-                    <p class="balance-modal-subtitle">موجودی حساب فعلی خود را تغییر دهید</p>
+                    
+                    <div class="balance-preset-buttons">
+                        <button type="button" class="balance-preset-btn" onclick="setBalancePreset(500)">$500</button>
+                        <button type="button" class="balance-preset-btn" onclick="setBalancePreset(1000)">$1,000</button>
+                        <button type="button" class="balance-preset-btn" onclick="setBalancePreset(2000)">$2,000</button>
+                        <button type="button" class="balance-preset-btn" onclick="setBalancePreset(5000)">$5,000</button>
+                    </div>
                 </div>
                 
-                <div class="balance-modal-body">
-                    <div class="balance-input-group">
-                        <label class="balance-input-label">مبلغ جدید (دلار)</label>
-                        <div class="balance-input-wrapper">
-                            <input type="number" id="newBalanceInput" class="balance-modal-input" placeholder="1000" step="0.01" min="0" value="1000">
-                            <span class="balance-input-symbol">$</span>
-                        </div>
-                        
-                        <div class="balance-preset-buttons">
-                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(5000)">$5,000</button>
-                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(10000)">$10,000</button>
-
-                        </div>
-                    </div>
-                    
-                    <div class="current-balance-display">
-                        <span class="current-balance-label">موجودی فعلی:</span>
-                        <span class="current-balance-value" id="currentBalanceDisplay">$1,500</span>
-                    </div>
-                    
-                    <div class="balance-modal-footer">
-                        <button type="button" class="balance-modal-btn balance-modal-btn-secondary" onclick="closeBalanceModal()">
-                            <i class="fas fa-times"></i> لغو
-                        </button>
-                        <button type="button" class="balance-modal-btn balance-modal-btn-primary" onclick="updateBalance()">
-                            <i class="fas fa-save"></i> ذخیره تغییرات
-                        </button>
-                    </div>
+                <div class="current-balance-display">
+                    <span class="current-balance-label">موجودی فعلی:</span>
+                    <span class="current-balance-value" id="currentBalanceDisplay">$1,500</span>
+                </div>
+                
+                <div class="balance-modal-footer">
+                    <button type="button" class="balance-modal-btn balance-modal-btn-secondary" onclick="closeBalanceModal()">
+                        <i class="fas fa-times"></i> لغو
+                    </button>
+                    <button type="button" class="balance-modal-btn balance-modal-btn-primary" onclick="updateBalance()">
+                        <i class="fas fa-save"></i> ذخیره تغییرات
+                    </button>
                 </div>
             </div>
         </div>
-        
-        <!-- مودال مدیریت حساب -->
-        <div id="accountManagementModal" class="account-modal">
-            <div class="account-modal-content">
-                <div class="account-modal-header">
-                    <button class="modal-close-btn" onclick="closeAccountManagementModal()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="account-modal-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h3 class="account-modal-title">مدیریت حساب‌ها</h3>
-                    <p class="account-modal-subtitle">افزودن، حذف و مدیریت حساب‌های مختلف</p>
+    </div>
+    
+    <!-- مودال مدیریت حساب -->
+    <div id="accountManagementModal" class="account-modal">
+        <div class="account-modal-content">
+            <div class="account-modal-header">
+                <button class="modal-close-btn" onclick="closeAccountManagementModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="account-modal-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3 class="account-modal-title">مدیریت حساب‌ها</h3>
+                <p class="account-modal-subtitle">افزودن، حذف و مدیریت حساب‌های مختلف</p>
+            </div>
+            
+            <div class="account-modal-body">
+                <div class="accounts-list" id="accountsListContainer">
+                    <!-- حساب‌ها در اینجا نمایش داده می‌شوند -->
                 </div>
                 
-                <div class="account-modal-body">
-                    <div class="accounts-list" id="accountsListContainer">
-                        <!-- حساب‌ها در اینجا نمایش داده می‌شوند -->
-                    </div>
-                    
-                    <div class="account-input-group">
-                        <label class="account-input-label">نام حساب جدید</label>
-                        <input type="text" id="newAccountName" class="account-modal-input" placeholder="مثلا: حساب اصلی بایننس">
-                    </div>
-                    
-                    <div class="account-input-group">
-                        <label class="account-input-label">موجودی اولیه (دلار)</label>
-                        <input type="number" id="newAccountBalance" class="account-modal-input" placeholder="1000" step="0.01" min="0" value="1000">
-                    </div>
-                    
-                    <div class="account-modal-footer">
-                        <button type="button" class="account-modal-btn account-modal-btn-secondary" onclick="closeAccountManagementModal()">
-                            <i class="fas fa-times"></i> بستن
-                        </button>
-                        <button type="button" class="account-modal-btn account-modal-btn-primary" onclick="addNewAccount()">
-                            <i class="fas fa-plus"></i> افزودن حساب جدید
-                        </button>
-                    </div>
+                <div class="account-input-group">
+                    <label class="account-input-label">نام حساب جدید</label>
+                    <input type="text" id="newAccountName" class="account-modal-input" placeholder="مثلا: حساب اصلی بایننس">
+                </div>
+                
+                <div class="account-input-group">
+                    <label class="account-input-label">موجودی اولیه (دلار)</label>
+                    <input type="number" id="newAccountBalance" class="account-modal-input" placeholder="1000" step="0.01" min="0" value="1000">
+                </div>
+                
+                <div class="account-modal-footer">
+                    <button type="button" class="account-modal-btn account-modal-btn-secondary" onclick="closeAccountManagementModal()">
+                        <i class="fas fa-times"></i> بستن
+                    </button>
+                    <button type="button" class="account-modal-btn account-modal-btn-primary" onclick="addNewAccount()">
+                        <i class="fas fa-plus"></i> افزودن حساب جدید
+                    </button>
                 </div>
             </div>
         </div>
-        
-        <!-- مودال جزئیات معامله -->
-        <div id="detailsModal" class="details-modal">
-            <div class="details-modal-content">
-                <h3 style="color: #60a5fa; margin-bottom: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <i class="fas fa-chart-line"></i>
-                    جزئیات معامله
-                </h3>
+    </div>
+    
+    <!-- مودال جزئیات معامله -->
+    <div id="detailsModal" class="details-modal">
+        <div class="details-modal-content">
+            <h3 style="color: #60a5fa; margin-bottom: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <i class="fas fa-chart-line"></i>
+                جزئیات معامله
+            </h3>
+            
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">ارز دیجیتال</span>
+                    <div class="detail-value" id="detail-symbol">BTC</div>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">نوع معامله</span>
+                    <div class="detail-value" id="detail-type">لانگ</div>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">تاریخ معامله</span>
+                    <div class="detail-value" id="detail-date">1402/10/15 - 14:30</div>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">وضعیت</span>
+                    <div class="detail-value" id="detail-status">باز</div>
+                </div>
+            </div>
+            
+            <div class="detail-section">
+                <div class="detail-section-title">
+                    <i class="fas fa-chart-area"></i>
+                    قیمت‌ها
+                </div>
                 
                 <div class="details-grid">
                     <div class="detail-item">
-                        <span class="detail-label">ارز دیجیتال</span>
-                        <div class="detail-value" id="detail-symbol">BTC</div>
+                        <span class="detail-label">قیمت ورود</span>
+                        <div class="detail-value price" id="detail-entry">90075</div>
                     </div>
                     
                     <div class="detail-item">
-                        <span class="detail-label">نوع معامله</span>
-                        <div class="detail-value" id="detail-type">لانگ</div>
+                        <span class="detail-label">حد ضرر</span>
+                        <div class="detail-value price" id="detail-sl">89861</div>
                     </div>
                     
                     <div class="detail-item">
-                        <span class="detail-label">تاریخ معامله</span>
-                        <div class="detail-value" id="detail-date">1402/10/15 - 14:30</div>
+                        <span class="detail-label">حد سود</span>
+                        <div class="detail-value price" id="detail-tp">90715</div>
                     </div>
                     
-                    <div class="detail-item">
-                        <span class="detail-label">وضعیت</span>
-                        <div class="detail-value" id="detail-status">باز</div>
+                    <div class="detail-item" id="detail-closed-price-container" style="display: none;">
+                        <span class="detail-label">قیمت بسته شدن</span>
+                        <div class="detail-value price" id="detail-closed-price">-</div>
                     </div>
-                </div>
-                
-                <div class="detail-section">
-                    <div class="detail-section-title">
-                        <i class="fas fa-chart-area"></i>
-                        قیمت‌ها
-                    </div>
-                    
-                    <div class="details-grid">
-                        <div class="detail-item">
-                            <span class="detail-label">قیمت ورود</span>
-                            <div class="detail-value price" id="detail-entry">90075</div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <span class="detail-label">حد ضرر</span>
-                            <div class="detail-value price" id="detail-sl">89861</div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <span class="detail-label">حد سود</span>
-                            <div class="detail-value price" id="detail-tp">90715</div>
-                        </div>
-                        
-                        <div class="detail-item" id="detail-closed-price-container" style="display: none;">
-                            <span class="detail-label">قیمت بسته شدن</span>
-                            <div class="detail-value price" id="detail-closed-price">-</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="detail-section">
-                    <div class="detail-section-title">
-                        <i class="fas fa-calculator"></i>
-                        محاسبات ریسک
-                    </div>
-                    
-                    <div class="details-grid">
-                        <div class="detail-item">
-                            <span class="detail-label">ریسک (% از بالانس)</span>
-                            <div class="detail-value" id="detail-risk-percent">0.5%</div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <span class="detail-label">مقدار ریسک ($)</span>
-                            <div class="detail-value" id="detail-risk-amount">$5.00</div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <span class="detail-label">اندازه پوزیشن</span>
-                            <div class="detail-value" id="detail-position-size">0.0234</div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <span class="detail-label">ریسک به ریوارد</span>
-                            <div class="detail-value" id="detail-rr">1:1.5</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="detail-section" id="detail-fee-section">
-                    <div class="detail-section-title">
-                        <i class="fas fa-receipt"></i>
-                        کارمزد
-                    </div>
-                    
-                    <div class="details-grid">
-                        <div class="detail-item">
-                            <span class="detail-label">کارمزد ورود</span>
-                            <div class="detail-value" id="detail-fee-entry" style="color: #f59e0b;">$0.00</div>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">کارمزد خروج</span>
-                            <div class="detail-value" id="detail-fee-exit" style="color: #f59e0b;">$0.00</div>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">کل کارمزد</span>
-                            <div class="detail-value" id="detail-total-fee" style="color: #f59e0b; font-weight: 700;">$0.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="detail-section" id="detail-result-section" style="display: none;">
-                    <div class="detail-section-title">
-                        <i class="fas fa-coins"></i>
-                        نتیجه معامله
-                    </div>
-                    
-                    <div class="details-grid">
-                        <div class="detail-item">
-                            <span class="detail-label">سود/ضرر خام</span>
-                            <div class="detail-value" id="detail-gross-pnl">+$12.50</div>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">کارمزد کسر شده</span>
-                            <div class="detail-value" id="detail-fee-deducted" style="color: #f59e0b;">$0.00</div>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">سود/ضرر خالص</span>
-                            <div class="detail-value" id="detail-net-pnl">+$12.50</div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <span class="detail-label">تاریخ بسته شدن</span>
-                            <div class="detail-value" id="detail-closed-date">1402/10/16 - 09:45</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="details-modal-buttons">
-                    <button type="button" class="btn-secondary" onclick="closeDetailsModal()" style="flex: 1;">
-                        <i class="fas fa-times"></i> بستن
-                    </button>
                 </div>
             </div>
+            
+            <div class="detail-section">
+                <div class="detail-section-title">
+                    <i class="fas fa-calculator"></i>
+                    محاسبات ریسک
+                </div>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">ریسک (% از بالانس)</span>
+                        <div class="detail-value" id="detail-risk-percent">0.5%</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">مقدار ریسک ($)</span>
+                        <div class="detail-value" id="detail-risk-amount">$5.00</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">اندازه پوزیشن</span>
+                        <div class="detail-value" id="detail-position-size">0.0234</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">ریسک به ریوارد</span>
+                        <div class="detail-value" id="detail-rr">1:1.5</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="detail-section" id="detail-fee-section">
+                <div class="detail-section-title">
+                    <i class="fas fa-receipt"></i>
+                    کارمزد
+                </div>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">کارمزد ورود</span>
+                        <div class="detail-value" id="detail-fee-entry" style="color: #f59e0b;">$0.00</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">کارمزد خروج</span>
+                        <div class="detail-value" id="detail-fee-exit" style="color: #f59e0b;">$0.00</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">کل کارمزد</span>
+                        <div class="detail-value" id="detail-total-fee" style="color: #f59e0b; font-weight: 700;">$0.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="detail-section" id="detail-result-section" style="display: none;">
+                <div class="detail-section-title">
+                    <i class="fas fa-coins"></i>
+                    نتیجه معامله
+                </div>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">سود/ضرر خام</span>
+                        <div class="detail-value" id="detail-gross-pnl">+$12.50</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">کارمزد کسر شده</span>
+                        <div class="detail-value" id="detail-fee-deducted" style="color: #f59e0b;">$0.00</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">سود/ضرر خالص</span>
+                        <div class="detail-value" id="detail-net-pnl">+$12.50</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">تاریخ بسته شدن</span>
+                        <div class="detail-value" id="detail-closed-date">1402/10/16 - 09:45</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="details-modal-buttons">
+                <button type="button" class="btn-secondary" onclick="closeDetailsModal()" style="flex: 1;">
+                    <i class="fas fa-times"></i> بستن
+                </button>
+            </div>
         </div>
-        
+    </div>
+    
+    <div class="container">
         <header>
             <h1>
                 <i class="fas fa-coins"></i>
@@ -1499,6 +1513,8 @@
                             <div class="quick-risk-buttons">
                                 <button type="button" class="quick-risk-btn" onclick="setRiskPercent(0.25)">0.25%</button>
                                 <button type="button" class="quick-risk-btn" onclick="setRiskPercent(0.5)">0.5%</button>
+                                <button type="button" class="quick-risk-btn" onclick="setRiskPercent(1)">1%</button>
+                                <button type="button" class="quick-risk-btn" onclick="setRiskPercent(2)">2%</button>
                             </div>
                         </div>
                         
@@ -1745,6 +1761,50 @@
             
             // بارگذاری لیست حساب‌ها
             updateAccountsList();
+            
+            // ==================== مدیریت کلیک روی پس‌زمینه مودال‌ها ====================
+            // مدیریت مودال بالانس
+            const balanceModal = document.getElementById('balanceModal');
+            if (balanceModal) {
+                balanceModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeBalanceModal();
+                    }
+                });
+            }
+            
+            // مدیریت مودال مدیریت حساب
+            const accountModal = document.getElementById('accountManagementModal');
+            if (accountModal) {
+                accountModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeAccountManagementModal();
+                    }
+                });
+            }
+            
+            // مدیریت مودال جزئیات
+            const detailsModal = document.getElementById('detailsModal');
+            if (detailsModal) {
+                detailsModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeDetailsModal();
+                    }
+                });
+            }
+            
+            // مدیریت کلیک کلید ESC برای بستن مودال‌ها
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (balanceModal && balanceModal.style.display === 'flex') {
+                        closeBalanceModal();
+                    } else if (accountModal && accountModal.style.display === 'flex') {
+                        closeAccountManagementModal();
+                    } else if (detailsModal && detailsModal.style.display === 'flex') {
+                        closeDetailsModal();
+                    }
+                }
+            });
         });
         
         // تابع تنظیم مقیاس دینامیک
@@ -1841,22 +1901,30 @@
         function openBalanceModal() {
             document.getElementById('newBalanceInput').value = accountBalance;
             document.getElementById('balanceModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                document.getElementById('newBalanceInput').focus();
+                document.getElementById('newBalanceInput').select();
+            }, 100);
         }
         
         // بستن مودال بالانس
         function closeBalanceModal() {
             document.getElementById('balanceModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
         
         // باز کردن مودال مدیریت حساب
         function openAccountManagementModal() {
             updateAccountsList();
             document.getElementById('accountManagementModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
         
         // بستن مودال مدیریت حساب
         function closeAccountManagementModal() {
             document.getElementById('accountManagementModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
         
         // به‌روزرسانی بالانس حساب
@@ -2248,11 +2316,13 @@
             
             // نمایش مودال
             document.getElementById('detailsModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
         
         // بستن مودال جزئیات معامله
         function closeDetailsModal() {
             document.getElementById('detailsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
         
         // محاسبه سود/ضرر یک معامله بسته شده با کارمزد صحیح
@@ -2697,7 +2767,7 @@
             notification.style.transform = 'translateX(-50%)';
             notification.style.padding = '12px 20px';
             notification.style.borderRadius = '8px';
-            notification.style.zIndex = '1000';
+            notification.style.zIndex = '10000';
             notification.style.fontWeight = '600';
             notification.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
             
