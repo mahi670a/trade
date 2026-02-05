@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Crypto Journal </title>
+    <title>Crypto Journal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -23,18 +23,18 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+            overflow-x: hidden;
         }
         
         /* کانتینر اصلی با عرض ثابت */
         .container {
-            width: 1400px; /* عرض ثابت اصلی */
+            width: 1400px;
             background-color: rgba(30, 41, 59, 0.95);
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             padding: 25px;
             border: 1px solid #334155;
-            transform-origin: top center; /* نقطه محور برای تغییر مقیاس */
+            transform-origin: top center;
         }
         
         /* استایل برای تغییر مقیاس خودکار بر اساس عرض صفحه */
@@ -46,17 +46,16 @@
             }
         }
         
-        /* برای صفحات خیلی کوچک، مقیاس را محدود کن */
         @media (max-width: 768px) {
             .container {
-                transform: scale(0.55); /* حداقل مقیاس */
+                transform: scale(0.55);
                 transform-origin: top center;
             }
         }
         
         @media (max-width: 480px) {
             .container {
-                transform: scale(0.4); /* مقیاس کمتر برای موبایل‌های بسیار کوچک */
+                transform: scale(0.4);
                 transform-origin: top center;
             }
         }
@@ -154,8 +153,8 @@
             transform: translateY(-2px);
         }
         
-        /* ========== مودال ویرایش بالانس - بهینه شده ========== */
-        .balance-modal, .details-modal {
+        /* ========== مودال‌ها ========== */
+        .balance-modal, .details-modal, .account-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -176,7 +175,7 @@
             to { opacity: 1; }
         }
         
-        .balance-modal-content {
+        .balance-modal-content, .account-modal-content {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             padding: 0;
             border-radius: 16px;
@@ -205,7 +204,7 @@
             }
         }
         
-        .balance-modal-header {
+        .balance-modal-header, .account-modal-header {
             background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             padding: 25px;
             border-radius: 16px 16px 0 0;
@@ -214,7 +213,7 @@
             overflow: hidden;
         }
         
-        .balance-modal-header::before {
+        .balance-modal-header::before, .account-modal-header::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -224,7 +223,7 @@
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
         }
         
-        .balance-modal-icon {
+        .balance-modal-icon, .account-modal-icon {
             background: rgba(255, 255, 255, 0.2);
             width: 70px;
             height: 70px;
@@ -237,27 +236,27 @@
             border: 3px solid rgba(255, 255, 255, 0.3);
         }
         
-        .balance-modal-title {
+        .balance-modal-title, .account-modal-title {
             color: white;
             font-size: 1.5rem;
             margin-bottom: 5px;
             font-weight: 700;
         }
         
-        .balance-modal-subtitle {
+        .balance-modal-subtitle, .account-modal-subtitle {
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
         
-        .balance-modal-body {
+        .balance-modal-body, .account-modal-body {
             padding: 30px;
         }
         
-        .balance-input-group {
+        .balance-input-group, .account-input-group {
             margin-bottom: 25px;
         }
         
-        .balance-input-label {
+        .balance-input-label, .account-input-label {
             color: #cbd5e1;
             font-size: 0.95rem;
             margin-bottom: 10px;
@@ -279,7 +278,7 @@
             font-size: 1.1rem;
         }
         
-        .balance-modal-input {
+        .balance-modal-input, .account-modal-input {
             width: 100%;
             padding: 16px 50px 16px 20px;
             background-color: #1e293b;
@@ -293,7 +292,7 @@
             transition: all 0.3s;
         }
         
-        .balance-modal-input:focus {
+        .balance-modal-input:focus, .account-modal-input:focus {
             outline: none;
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
@@ -347,13 +346,13 @@
             font-weight: 700;
         }
         
-        .balance-modal-footer {
+        .balance-modal-footer, .account-modal-footer {
             display: flex;
             gap: 12px;
             margin-top: 25px;
         }
         
-        .balance-modal-btn {
+        .balance-modal-btn, .account-modal-btn {
             flex: 1;
             padding: 14px;
             border: none;
@@ -368,23 +367,23 @@
             gap: 8px;
         }
         
-        .balance-modal-btn-primary {
+        .balance-modal-btn-primary, .account-modal-btn-primary {
             background: linear-gradient(135deg, #3b82f6, #6366f1);
             color: white;
         }
         
-        .balance-modal-btn-primary:hover {
+        .balance-modal-btn-primary:hover, .account-modal-btn-primary:hover {
             background: linear-gradient(135deg, #2563eb, #4f46e5);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
         
-        .balance-modal-btn-secondary {
+        .balance-modal-btn-secondary, .account-modal-btn-secondary {
             background-color: #475569;
             color: #e2e8f0;
         }
         
-        .balance-modal-btn-secondary:hover {
+        .balance-modal-btn-secondary:hover, .account-modal-btn-secondary:hover {
             background-color: #64748b;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(71, 85, 105, 0.3);
@@ -414,6 +413,92 @@
             transform: rotate(90deg);
         }
         
+        /* ========== بخش مدیریت حساب ========== */
+        .accounts-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            padding: 10px;
+            background-color: rgba(15, 23, 42, 0.5);
+        }
+        
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #475569;
+            transition: all 0.2s;
+        }
+        
+        .account-item:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .account-item:last-child {
+            border-bottom: none;
+        }
+        
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .account-name {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        
+        .account-balance {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        .account-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .account-action-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .account-action-btn:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .account-action-btn.delete:hover {
+            color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        .active-account {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+        }
+        
+        .active-badge {
+            background-color: #10b981;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+        
+        /* ========== بخش‌های دیگر ========== */
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -851,21 +936,10 @@
             box-shadow: none;
         }
         
-        .btn-print {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-        }
-        
-        .btn-print:hover {
-            background: linear-gradient(135deg, #7c3aed, #6d28d9);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
-        }
-        
         /* ========== بخش آمار عملکرد ========== */
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* تغییر به 4 کارت در هر خط */
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
             margin-top: 15px;
         }
@@ -1071,69 +1145,6 @@
             gap: 10px;
             margin-top: 20px;
         }
-        
-        /* حالت پرینت */
-        @media print {
-            body {
-                background: white !important;
-                color: black !important;
-                padding: 10px !important;
-            }
-            
-            .container {
-                box-shadow: none !important;
-                border: 1px solid #ccc !important;
-                background: white !important;
-                width: 100% !important;
-                transform: none !important;
-            }
-            
-            .section {
-                background: white !important;
-                border: 1px solid #ddd !important;
-                margin-bottom: 15px !important;
-                break-inside: avoid;
-            }
-            
-            .balance-container, button, .form-actions, .trade-form, .actions, .backup-container {
-                display: none !important;
-            }
-            
-            .trades-table {
-                min-width: 100% !important;
-                font-size: 11px !important;
-                direction: ltr !important;
-            }
-            
-            .trades-table th {
-                background: #f0f0f0 !important;
-                color: black !important;
-                border: 1px solid #ddd !important;
-                text-align: left !important;
-            }
-            
-            .trades-table td {
-                border: 1px solid #ddd !important;
-                text-align: left !important;
-            }
-            
-            .profit, .loss {
-                background: none !important;
-                padding: 0 !important;
-                font-family: inherit !important;
-            }
-            
-            .crypto-badge {
-                background: none !important;
-                color: black !important;
-                padding: 0 !important;
-            }
-            
-            .stats-container {
-                display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1148,8 +1159,8 @@
                     <div class="balance-modal-icon">
                         <i class="fas fa-wallet"></i>
                     </div>
-                    <h3 class="balance-modal-title"> بالانس حساب</h3>
-                    <p class="balance-modal-subtitle"></p>
+                    <h3 class="balance-modal-title">ویرایش بالانس حساب</h3>
+                    <p class="balance-modal-subtitle">موجودی حساب فعلی خود را تغییر دهید</p>
                 </div>
                 
                 <div class="balance-modal-body">
@@ -1161,8 +1172,9 @@
                         </div>
                         
                         <div class="balance-preset-buttons">
-                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(2000)">$2,000</button>
+                            <button type="button" class="balance-preset-btn" onclick="setBalancePreset(5000)">$5,000</button>
                             <button type="button" class="balance-preset-btn" onclick="setBalancePreset(10000)">$10,000</button>
+
                         </div>
                     </div>
                     
@@ -1177,6 +1189,47 @@
                         </button>
                         <button type="button" class="balance-modal-btn balance-modal-btn-primary" onclick="updateBalance()">
                             <i class="fas fa-save"></i> ذخیره تغییرات
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- مودال مدیریت حساب -->
+        <div id="accountManagementModal" class="account-modal">
+            <div class="account-modal-content">
+                <div class="account-modal-header">
+                    <button class="modal-close-btn" onclick="closeAccountManagementModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="account-modal-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="account-modal-title">مدیریت حساب‌ها</h3>
+                    <p class="account-modal-subtitle">افزودن، حذف و مدیریت حساب‌های مختلف</p>
+                </div>
+                
+                <div class="account-modal-body">
+                    <div class="accounts-list" id="accountsListContainer">
+                        <!-- حساب‌ها در اینجا نمایش داده می‌شوند -->
+                    </div>
+                    
+                    <div class="account-input-group">
+                        <label class="account-input-label">نام حساب جدید</label>
+                        <input type="text" id="newAccountName" class="account-modal-input" placeholder="مثلا: حساب اصلی بایننس">
+                    </div>
+                    
+                    <div class="account-input-group">
+                        <label class="account-input-label">موجودی اولیه (دلار)</label>
+                        <input type="number" id="newAccountBalance" class="account-modal-input" placeholder="1000" step="0.01" min="0" value="1000">
+                    </div>
+                    
+                    <div class="account-modal-footer">
+                        <button type="button" class="account-modal-btn account-modal-btn-secondary" onclick="closeAccountManagementModal()">
+                            <i class="fas fa-times"></i> بستن
+                        </button>
+                        <button type="button" class="account-modal-btn account-modal-btn-primary" onclick="addNewAccount()">
+                            <i class="fas fa-plus"></i> افزودن حساب جدید
                         </button>
                     </div>
                 </div>
@@ -1333,7 +1386,7 @@
                 <i class="fas fa-coins"></i>
                 Crypto Journal
             </h1>
-            <p class="subtitle">  R-NIKER  </p>
+            <p class="subtitle">R-NIKER</p>
         </header>
         
         <!-- بخش بالانس حساب -->
@@ -1345,6 +1398,7 @@
                 <div class="balance-info">
                     <div class="balance-title">موجودی حساب</div>
                     <div class="balance-value" id="currentBalance">$1,500</div>
+                    <div id="currentAccountName" style="color: #94a3b8; font-size: 0.8rem; margin-top: 5px;">حساب اصلی</div>
                 </div>
             </div>
             
@@ -1357,12 +1411,20 @@
                     <div class="detail-label">ریسک کل</div>
                     <div class="detail-value" id="totalRiskPercent">0%</div>
                 </div>
+                <div class="balance-detail">
+                    <div class="detail-label">حساب فعال</div>
+                    <div class="detail-value" id="activeAccountIndicator" style="color: #3b82f6;">1/1</div>
+                </div>
             </div>
             
             <div class="balance-actions">
                 <button class="balance-btn" onclick="openBalanceModal()">
                     <i class="fas fa-edit"></i>
                     ویرایش بالانس
+                </button>
+                <button class="balance-btn" onclick="openAccountManagementModal()">
+                    <i class="fas fa-university"></i>
+                    مدیریت حساب
                 </button>
             </div>
         </div>
@@ -1463,7 +1525,7 @@
                                 <span class="risk-summary-value" id="riskAmount" style="color: #ef4444;">$0</span>
                             </div>
                             <div class="risk-summary-item">
-                                <span class="risk-summary-label">سود </span>
+                                <span class="risk-summary-label">سود بالقوه</span>
                                 <span class="risk-summary-value" id="potentialProfit" style="color: #10b981;">$0</span>
                             </div>
                             <div class="risk-summary-item">
@@ -1510,12 +1572,7 @@
             
             <!-- بخش تاریخچه معاملات -->
             <section class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h2 class="section-title" style="margin-bottom: 0;"><i class="fas fa-history"></i> تاریخچه معاملات</h2>
-                    <button class="btn-print" onclick="window.print()">
-                        <i class="fas fa-print"></i> پرینت گزارش
-                    </button>
-                </div>
+                <h2 class="section-title"><i class="fas fa-history"></i> تاریخچه معاملات</h2>
                 <div class="trades-table-container">
                     <table class="trades-table">
                         <thead>
@@ -1643,7 +1700,14 @@
         // ============================
         
         // مدیریت داده‌ها
-        let accountBalance = parseFloat(localStorage.getItem('crypto_account_balance')) || 1000;
+        let accounts = JSON.parse(localStorage.getItem('crypto_accounts')) || [
+            { id: 1, name: 'حساب اصلی', balance: 1000 }
+        ];
+        
+        let activeAccountId = parseInt(localStorage.getItem('crypto_active_account_id')) || 1;
+        let activeAccount = accounts.find(acc => acc.id === activeAccountId) || accounts[0];
+        let accountBalance = activeAccount ? activeAccount.balance : 1000;
+        
         let trades = JSON.parse(localStorage.getItem('crypto_trades')) || [];
         
         // بارگذاری اولیه
@@ -1678,12 +1742,15 @@
             adjustScale();
             window.addEventListener('resize', adjustScale);
             window.addEventListener('load', adjustScale);
+            
+            // بارگذاری لیست حساب‌ها
+            updateAccountsList();
         });
         
         // تابع تنظیم مقیاس دینامیک
         function adjustScale() {
             const container = document.querySelector('.container');
-            const containerWidth = 1400; // عرض اصلی کانتینر
+            const containerWidth = 1400;
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             
@@ -1709,6 +1776,11 @@
         function updateBalanceDisplay() {
             document.getElementById('currentBalance').textContent = '$' + formatNumber(accountBalance);
             document.getElementById('currentBalanceDisplay').textContent = '$' + formatNumber(accountBalance);
+            document.getElementById('currentAccountName').textContent = activeAccount.name;
+            
+            // به‌روزرسانی نشانگر حساب فعال
+            const activeAccountIndicator = document.getElementById('activeAccountIndicator');
+            activeAccountIndicator.textContent = `${accounts.findIndex(acc => acc.id === activeAccountId) + 1}/${accounts.length}`;
         }
         
         // تنظیم مقدار پیش‌فرض بالانس
@@ -1776,6 +1848,17 @@
             document.getElementById('balanceModal').style.display = 'none';
         }
         
+        // باز کردن مودال مدیریت حساب
+        function openAccountManagementModal() {
+            updateAccountsList();
+            document.getElementById('accountManagementModal').style.display = 'flex';
+        }
+        
+        // بستن مودال مدیریت حساب
+        function closeAccountManagementModal() {
+            document.getElementById('accountManagementModal').style.display = 'none';
+        }
+        
         // به‌روزرسانی بالانس حساب
         function updateBalance() {
             const newBalanceInput = document.getElementById('newBalanceInput');
@@ -1784,8 +1867,15 @@
             newBalance = Math.round(newBalance * 100) / 100;
             
             if (!isNaN(newBalance) && newBalance > 0) {
-                accountBalance = newBalance;
-                localStorage.setItem('crypto_account_balance', accountBalance);
+                // به‌روزرسانی حساب فعال
+                const activeAccountIndex = accounts.findIndex(acc => acc.id === activeAccountId);
+                if (activeAccountIndex !== -1) {
+                    accounts[activeAccountIndex].balance = newBalance;
+                    activeAccount = accounts[activeAccountIndex];
+                    accountBalance = newBalance;
+                    saveAccounts();
+                }
+                
                 updateBalanceDisplay();
                 updateTotalRisk();
                 updateStats();
@@ -1957,7 +2047,8 @@
                 positionValue: riskData.positionValue,
                 potentialProfit: riskData.potentialProfit,
                 netProfit: riskData.netProfit,
-                riskRewardRatio: riskData.riskRewardRatio
+                riskRewardRatio: riskData.riskRewardRatio,
+                accountId: activeAccountId // ذخیره شناسه حساب
             };
             
             trades.push(trade);
@@ -2004,7 +2095,10 @@
             const tbody = document.getElementById('tradesTableBody');
             const noTradesMessage = document.getElementById('noTradesMessage');
             
-            if (trades.length === 0) {
+            // فقط معاملات حساب فعال را نشان بده
+            const accountTrades = trades.filter(trade => trade.accountId === activeAccountId);
+            
+            if (accountTrades.length === 0) {
                 tbody.innerHTML = '';
                 noTradesMessage.style.display = 'block';
                 return;
@@ -2013,7 +2107,7 @@
             noTradesMessage.style.display = 'none';
             
             // مرتب‌سازی معاملات (جدیدترین اول)
-            const sortedTrades = [...trades].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedTrades = [...accountTrades].sort((a, b) => new Date(b.date) - new Date(a.date));
             
             let html = '';
             sortedTrades.forEach(trade => {
@@ -2182,7 +2276,9 @@
         // محاسبه سود/ضرر کل
         function calculateTotalPnL() {
             let total = 0;
-            trades.forEach(trade => {
+            // فقط معاملات حساب فعال
+            const accountTrades = trades.filter(trade => trade.accountId === activeAccountId);
+            accountTrades.forEach(trade => {
                 total += calculateTradePnL(trade);
             });
             return total;
@@ -2191,7 +2287,8 @@
         // محاسبه سود کل
         function calculateTotalProfit() {
             let total = 0;
-            trades.forEach(trade => {
+            const accountTrades = trades.filter(trade => trade.accountId === activeAccountId);
+            accountTrades.forEach(trade => {
                 const pnl = calculateTradePnL(trade);
                 if (pnl > 0) {
                     total += pnl;
@@ -2203,7 +2300,8 @@
         // محاسبه ضرر کل
         function calculateTotalLoss() {
             let total = 0;
-            trades.forEach(trade => {
+            const accountTrades = trades.filter(trade => trade.accountId === activeAccountId);
+            accountTrades.forEach(trade => {
                 const pnl = calculateTradePnL(trade);
                 if (pnl < 0) {
                     total += Math.abs(pnl);
@@ -2215,7 +2313,8 @@
         // محاسبه کل کارمزدها
         function calculateTotalFees() {
             let total = 0;
-            trades.forEach(trade => {
+            const accountTrades = trades.filter(trade => trade.accountId === activeAccountId);
+            accountTrades.forEach(trade => {
                 total += trade.totalFee || 0;
             });
             return total;
@@ -2223,14 +2322,17 @@
         
         // به‌روزرسانی آمار
         function updateStats() {
-            if (trades.length === 0) {
+            // فقط معاملات حساب فعال
+            const accountTrades = trades.filter(trade => trade.accountId === activeAccountId);
+            
+            if (accountTrades.length === 0) {
                 resetStats();
                 return;
             }
             
-            const closedTrades = trades.filter(t => t.status === 'closed');
-            const openTrades = trades.filter(t => t.status === 'open');
-            const totalTrades = trades.length;
+            const closedTrades = accountTrades.filter(t => t.status === 'closed');
+            const openTrades = accountTrades.filter(t => t.status === 'open');
+            const totalTrades = accountTrades.length;
             
             // محاسبات آماری
             let totalPnl = 0;
@@ -2357,13 +2459,167 @@
             localStorage.setItem('crypto_trades', JSON.stringify(trades));
         }
         
+        // ذخیره حساب‌ها
+        function saveAccounts() {
+            localStorage.setItem('crypto_accounts', JSON.stringify(accounts));
+            localStorage.setItem('crypto_active_account_id', activeAccountId.toString());
+        }
+        
+        // به‌روزرسانی لیست حساب‌ها در مودال مدیریت حساب
+        function updateAccountsList() {
+            const accountsListContainer = document.getElementById('accountsListContainer');
+            if (!accountsListContainer) return;
+            
+            let html = '';
+            
+            accounts.forEach(account => {
+                const isActive = account.id === activeAccountId;
+                
+                html += `
+                    <div class="account-item ${isActive ? 'active-account' : ''}">
+                        <div class="account-info">
+                            <div class="account-name">${account.name}</div>
+                            <div class="account-balance">${formatCurrency(account.balance)}</div>
+                            ${isActive ? '<div class="active-badge">فعال</div>' : ''}
+                        </div>
+                        <div class="account-actions">
+                            <button class="account-action-btn" onclick="switchAccount(${account.id})" ${isActive ? 'disabled' : ''} title="انتخاب به عنوان حساب فعال">
+                                <i class="fas fa-check-circle"></i>
+                            </button>
+                            <button class="account-action-btn delete" onclick="deleteAccount(${account.id})" ${account.id === 1 ? 'disabled' : ''} title="حذف حساب">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            accountsListContainer.innerHTML = html;
+        }
+        
+        // افزودن حساب جدید
+        function addNewAccount() {
+            const newAccountName = document.getElementById('newAccountName').value.trim();
+            const newAccountBalance = parseFloat(document.getElementById('newAccountBalance').value);
+            
+            if (!newAccountName) {
+                showNotification('لطفاً نام حساب را وارد کنید.', 'error');
+                return;
+            }
+            
+            if (isNaN(newAccountBalance) || newAccountBalance <= 0) {
+                showNotification('لطفاً موجودی اولیه معتبر وارد کنید.', 'error');
+                return;
+            }
+            
+            // بررسی اینکه آیا حساب با این نام وجود دارد
+            const existingAccount = accounts.find(acc => acc.name.toLowerCase() === newAccountName.toLowerCase());
+            if (existingAccount) {
+                showNotification('حسابی با این نام از قبل وجود دارد.', 'error');
+                return;
+            }
+            
+            // ایجاد شناسه جدید
+            const newAccountId = accounts.length > 0 ? Math.max(...accounts.map(acc => acc.id)) + 1 : 1;
+            
+            // ایجاد حساب جدید
+            const newAccount = {
+                id: newAccountId,
+                name: newAccountName,
+                balance: newAccountBalance
+            };
+            
+            accounts.push(newAccount);
+            saveAccounts();
+            
+            // پاک کردن فیلدهای ورودی
+            document.getElementById('newAccountName').value = '';
+            document.getElementById('newAccountBalance').value = '1000';
+            
+            // به‌روزرسانی لیست حساب‌ها
+            updateAccountsList();
+            
+            showNotification('حساب جدید با موفقیت اضافه شد.', 'success');
+        }
+        
+        // حذف حساب
+        function deleteAccount(accountId) {
+            if (accountId === 1) {
+                showNotification('حساب اصلی قابل حذف نیست.', 'error');
+                return;
+            }
+            
+            if (accounts.length <= 1) {
+                showNotification('حداقل باید یک حساب وجود داشته باشد.', 'error');
+                return;
+            }
+            
+            if (confirm('آیا از حذف این حساب اطمینان دارید؟ تمام معاملات مربوط به این حساب نیز حذف خواهند شد.')) {
+                // حذف حساب
+                accounts = accounts.filter(acc => acc.id !== accountId);
+                
+                // حذف معاملات مربوط به این حساب
+                trades = trades.filter(trade => trade.accountId !== accountId);
+                
+                // اگر حساب فعال در حال حذف است، به حساب اصلی برو
+                if (accountId === activeAccountId) {
+                    activeAccountId = 1;
+                    activeAccount = accounts.find(acc => acc.id === 1);
+                    accountBalance = activeAccount.balance;
+                }
+                
+                // ذخیره تغییرات
+                saveAccounts();
+                saveTrades();
+                
+                // به‌روزرسانی نمایش
+                updateBalanceDisplay();
+                updateAccountsList();
+                loadTrades();
+                updateStats();
+                updateTotalRisk();
+                
+                showNotification('حساب و معاملات مربوطه حذف شدند.', 'warning');
+            }
+        }
+        
+        // تغییر حساب فعال
+        function switchAccount(accountId) {
+            const newActiveAccount = accounts.find(acc => acc.id === accountId);
+            
+            if (!newActiveAccount) {
+                showNotification('حساب مورد نظر یافت نشد.', 'error');
+                return;
+            }
+            
+            activeAccountId = accountId;
+            activeAccount = newActiveAccount;
+            accountBalance = activeAccount.balance;
+            
+            saveAccounts();
+            
+            // به‌روزرسانی نمایش
+            updateBalanceDisplay();
+            updateAccountsList();
+            loadTrades();
+            updateStats();
+            updateTotalRisk();
+            calculateRisk();
+            
+            showNotification(`حساب "${activeAccount.name}" فعال شد.`, 'success');
+            
+            // بستن مودال مدیریت حساب
+            closeAccountManagementModal();
+        }
+        
         // پشتیبان‌گیری
         function exportData() {
             const data = {
-                balance: accountBalance,
+                accounts: accounts,
+                activeAccountId: activeAccountId,
                 trades: trades,
                 exportDate: new Date().toISOString(),
-                version: '1.0'
+                version: '2.0'
             };
             
             const dataStr = JSON.stringify(data, null, 2);
@@ -2397,17 +2653,25 @@
                     const data = JSON.parse(e.target.result);
                     
                     if (confirm('بارگذاری این فایل، اطلاعات فعلی را جایگزین می‌کند. ادامه می‌دهید؟')) {
-                        if (data.balance) {
-                            accountBalance = data.balance;
-                            localStorage.setItem('crypto_account_balance', accountBalance);
+                        if (data.accounts && Array.isArray(data.accounts)) {
+                            accounts = data.accounts;
+                        }
+                        
+                        if (data.activeAccountId) {
+                            activeAccountId = data.activeAccountId;
+                            activeAccount = accounts.find(acc => acc.id === activeAccountId) || accounts[0];
+                            accountBalance = activeAccount ? activeAccount.balance : 1000;
                         }
                         
                         if (data.trades && Array.isArray(data.trades)) {
                             trades = data.trades;
-                            localStorage.setItem('crypto_trades', JSON.stringify(trades));
                         }
                         
+                        saveAccounts();
+                        saveTrades();
+                        
                         updateBalanceDisplay();
+                        updateAccountsList();
                         updateTotalRisk();
                         loadTrades();
                         updateStats();
